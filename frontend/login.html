@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Doctor Dashboard | MedConnect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="src/output.css">
+  <style>
+    .video-container { position: relative; background: #000; border-radius: 1rem; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .video-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+    .pulse-dot { width: 12px; height: 12px; background: #10b981; border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
+    .patient-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white transition-all">
+
+  <!-- NAVBAR -->
+  <nav class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-4 px-6 shadow-lg">
+    <div class="flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div id="docPhoto" class="w-12 h-12 rounded-full overflow-hidden border-3 border-white"></div>
+        <h1 class="text-2xl font-bold">MedConnect <span class="text-sm opacity-80">— Doctor</span></h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="bg-white dark:bg-gray-700 text-blue-700 dark:text-yellow-400 px-4 py-2 rounded-lg font-semibold flex items-center gap-2">
+          Dark Mode
+        </button>
+        <button onclick="logout()" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg font-semibold">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="p-4 sm:p-6 max-w-7xl mx-auto space-y-6">
+
+    <!-- WELCOME -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+      <h2 class="text-3xl font-bold text-blue-700 dark:text-blue-400">Welcome, <span id="docName">Dr. Smith</span></h2>
+      <p class="text-gray-600 dark:text-gray-400">Manage patients, appointments & prescriptions</p>
+    </div>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div class="bg-gradient-to-br from-green-500 to-teal-600 text-white p-6 rounded-2xl shadow-lg">
+        <p class="text-3xl font-bold" id="totalPatients">0</p>
+        <p>Total Patients</p>
+      </div>
+      <div class="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-6 rounded-2xl shadow-lg">
+        <p class="text-3xl font-bold" id="pendingAppts">0</p>
+        <p>Pending Appointments</p>
+      </div>
+      <div class="bg-gradient-to-br from-purple-500 to-pink-600 text-white p-6 rounded-2xl shadow-lg">
+        <p class="text-3xl font-bold" id="todayEarnings">$0</p>
+        <p>Today's Earnings</p>
+      </div>
+      <div class="bg-gradient-to-br from-yellow-500 to-orange-600 text-white p-6 rounded-2xl shadow-lg">
+        <p class="text-3xl font-bold" id="activeCalls">0</p>
+        <p>Active Calls</p>
+      </div>
+    </div>
+
+    <!-- PENDING APPOINTMENTS -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+      <h3 class="text-xl font-bold text-blue-700 dark:text-blue-400 mb-4">Pending Appointments</h3>
+      <div id="appointmentsList" class="space-y-3"></div>
+    </div>
+
+    <!-- PATIENT LIST -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+      <h3 class="text-xl font-bold text-blue-700 dark:text-blue-400 mb-4">My Patients</h3>
+      <div id="patientsList" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+    </div>
+
+    <!-- PRESCRIPTION WRITER -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+      <h3 class="text-xl font-bold text-blue-700 dark:text-blue-400 mb-4">Write Prescription</h3>
+      <div class="grid gap-4 md:grid-cols-2">
+        <input type="text" id="presPatient" placeholder="Patient Name" class="border p-3 rounded-lg dark:bg-gray-700 dark:text-white">
+        <input type="text" id="presMed" placeholder="Medication" class="border p-3 rounded-lg dark:bg-gray-700 dark:text-white">
+        <input type="text" id="presDosage" placeholder="Dosage (e.g. 500mg)" class="border p-3 rounded-lg dark:bg-gray-700 dark:text-white">
+        <input type="text" id="presDuration" placeholder="Duration (e.g. 7 days)" class="border p-3 rounded-lg dark:bg-gray-700 dark:text-white">
+        <button id="sendPrescription" class="md:col-span-2 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700">Send Prescription</button>
+      </div>
+    </div>
+
+    <!-- PAYMENTS -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+      <h3 class="text-xl font-bold text-blue-700 dark:text-blue-400 mb-4">Payment History</h3>
+      <div id="paymentsList" class="space-y-2"></div>
+    </div>
+
+  </main>
+
+  <!-- MODAL: VIDEO CALL -->
+  <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl w-full max-w-4xl">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold">Video Call with <span id="callPatient"></span></h3>
+        <button id="endCallBtn" class="bg-red-600 text-white px-4 py-2 rounded-lg">End Call</button>
+      </div>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="md:col-span-2 video-container h-64 md:h-96">
+          <div class="video-placeholder">Patient Video</div>
+        </div>
+        <div class="video-container h-40 md:h-96">
+          <div class="video-placeholder">Your Camera</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // === DATA ===
+    const doctor = JSON.parse(localStorage.getItem('user') || '{}');
+    if (!doctor.role || doctor.role !== 'doctor') window.location.href = 'doctors.html';
+
+    document.getElementById('docName').textContent = doctor.name;
+    document.getElementById('docPhoto').innerHTML = doctor.photo || '<div class="w-full h-full bg-gray-300 flex items-center justify-center text-xs">Dr</div>';
+
+    // === DARK MODE ===
+    const html = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') html.classList.add('dark');
+    toggle.innerHTML = html.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
+    toggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      toggle.innerHTML = html.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    // === PATIENTS & APPOINTMENTS ===
+    let patients = JSON.parse(localStorage.getItem('patients') || '[]');
+    let appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+    let payments = JSON.parse(localStorage.getItem('payments') || '[]');
+
+    function saveData() {
+      localStorage.setItem('patients', JSON.stringify(patients));
+      localStorage.setItem('appointments', JSON.stringify(appointments));
+      localStorage.setItem('payments', JSON.stringify(payments));
+    }
+
+    // Simulate incoming patient
+    if (patients.length === 0) {
+      patients = [
+        { id: 1, name: 'Alice Johnson', age: 32, condition: 'Fever', photo: '' },
+        { id: 2, name: 'Bob Smith', age: 45, condition: 'Hypertension', photo: '' }
+      ];
+      saveData();
+    }
+
+    function renderAppointments() {
+      const list = document.getElementById('appointmentsList');
+      const pending = appointments.filter(a => a.status === 'pending');
+      document.getElementById('pendingAppts').textContent = pending.length;
+      list.innerHTML = pending.map(a => `
+        <div class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+          <div>
+            <p class="font-semibold">${a.patient}</p>
+            <p class="text-sm text-gray-500">${a.time}</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="acceptAppointment(${a.id})" class="bg-green-600 text-white px-3 py-1 rounded">Accept</button>
+            <button onclick="rejectAppointment(${a.id})" class="bg-red-600 text-white px-3 py-1 rounded">Reject</button>
+          </div>
+        </div>
+      `).join('') || '<p class="text-gray-500">No pending appointments</p>';
+    }
+
+    function renderPatients() {
+      const list = document.getElementById('patientsList');
+      document.getElementById('totalPatients').textContent = patients.length;
+      list.innerHTML = patients.map(p => `
+        <div class="patient-card p-4 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 rounded-xl cursor-pointer" onclick="startCall('${p.name}')">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-xs font-bold">${p.name[0]}</div>
+            <div>
+              <p class="font-semibold">${p.name}</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">${p.condition}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderPayments() {
+      const list = document.getElementById('paymentsList');
+      const today = new Date().toDateString();
+      const todayEarnings = payments.filter(p => new Date(p.date).toDateString() === today).reduce((s, p) => s + p.amount, 0);
+      document.getElementById('todayEarnings').textContent = `$${todayEarnings}`;
+      list.innerHTML = payments.slice(-5).map(p => `
+        <div class="flex justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+          <div>
+            <p class="font-semibold">${p.from}</p>
+            <p class="text-sm text-gray-500">${p.date}</p>
+          </div>
+          <p class="font-bold text-green-600">+$${p.amount}</p>
+        </div>
+      `).join('') || '<p class="text-gray-500">No payments yet</p>';
+    }
+
+    window.acceptAppointment = (id) => {
+      const appt = appointments.find(a => a.id === id);
+      if (appt) {
+        appt.status = 'accepted';
+        payments.push({ from: appt.patient, amount: 50, date: new Date().toLocaleString() });
+        saveData();
+        renderAppointments();
+        renderPayments();
+        alert(`Appointment with ${appt.patient} accepted!`);
+      }
+    };
+
+    window.rejectAppointment = (id) => {
+      appointments = appointments.filter(a => a.id !== id);
+      saveData();
+      renderAppointments();
+    };
+
+    window.startCall = (name) => {
+      document.getElementById('callPatient').textContent = name;
+      document.getElementById('videoModal').classList.remove('hidden');
+      document.getElementById('activeCalls').textContent = '1';
+    };
+
+    document.getElementById('endCallBtn').addEventListener('click', () => {
+      document.getElementById('videoModal').classList.add('hidden');
+      document.getElementById('activeCalls').textContent = '0';
+    });
+
+    document.getElementById('sendPrescription').addEventListener('click', () => {
+      const patient = document.getElementById('presPatient').value.trim();
+      const med = document.getElementById('presMed').value.trim();
+      if (!patient || !med) return alert("Fill patient & medication");
+      alert(`Prescription sent to ${patient}: ${med}`);
+      document.getElementById('presPatient').value = '';
+      document.getElementById('presMed').value = '';
+      document.getElementById('presDosage').value = '';
+      document.getElementById('presDuration').value = '';
+    });
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = 'login.html';
+    }
+
+    // Simulate new appointment every 30s
+    setInterval(() => {
+      if (Math.random() > 0.7) {
+        const names = ['John Doe', 'Jane Roe', 'Mike Lee'];
+        appointments.push({
+          id: Date.now(),
+          patient: names[Math.floor(Math.random() * names.length)],
+          time: new Date().toLocaleTimeString(),
+          status: 'pending'
+        });
+        saveData();
+        renderAppointments();
+      }
+    }, 30000);
+
+    // Init
+    renderAppointments();
+    renderPatients();
+    renderPayments();
+  </script>
+</body>
+</html>

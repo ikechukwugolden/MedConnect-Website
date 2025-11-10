@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Departments | MedConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
+      <style>
+        html { scroll-behavior: smooth; }
+        body { overflow-x: hidden; background-color: #f9fbff; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.8s ease-in-out both; }
+      </style>
+  </head>
+  <body class="text-gray-800 h-screen w-full" >
+
+    <!-- ===== NAVBAR ===== -->
+    <header class="w-full h-[40vh] bg-white shadow-md flex justify-between items-center px-6 md:px-12 fixed top-0 left-0 z-50">
+      <h1 class="text-2xl md:text-3xl font-bold text-blue-700">MedConnect</h1>
+      <nav class="hidden lg:flex gap-6 font-medium">
+        <a href="index.html" class="hover:text-blue-600">Home</a>
+        <a href="departments.html" class="text-blue-600 font-semibold">Departments</a>
+        <a href="appoint.html" class="hover:text-blue-600">Appointment</a>
+        <a href="dash.html" class="hover:text-blue-600">Dashboard</a>
+        <a href="contact.html" class="hover:text-blue-600">Contact</a>
+      </nav>
+      <div class="max-lg:block hidden text-3xl text-blue-900">
+        <i class="bi bi-list"></i>
+      </div>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="flex flex-col lg:flex-row items-center justify-between w-full px-8 lg:px-20 pt-28 pb-16 bg-blue-600 text-white rounded-b-[50px] overflow-hidden">
+      <div class="lg:w-1/2 w-full space-y-5" data-aos="fade-right">
+        <p class="uppercase tracking-widest text-yellow-300 font-semibold">Medical Innovation</p>
+        <h1 class="text-4xl lg:text-5xl font-bold leading-snug">
+          Advanced Medication & Health Technology
+        </h1>
+        <p class="text-blue-100 text-lg leading-relaxed">
+          At <span class="font-semibold text-white">MedConnect</span>, we combine medical excellence with modern technology —
+          offering AI-assisted diagnosis, digital prescriptions, and remote patient monitoring for everyone.
+        </p>
+        <div class="flex items-center gap-3">
+          <button class="bg-white text-blue-700 px-6 py-3 rounded-full font-semibold hover:bg-blue-100 transition">
+            Learn More
+          </button>
+          <button class="border border-white px-6 py-3 rounded-full hover:bg-blue-700 transition">
+            Explore Departments
+          </button>
+        </div>
+        <div class="flex items-center gap-3 pt-6">
+          <div class="h-3 w-3 bg-yellow-300 rounded-full"></div>
+          <p class="text-sm text-blue-100">Trusted by 100+ hospitals across Africa</p>
+        </div>
+      </div>
+      <div class="relative lg:w-1/2 w-full mt-10 lg:mt-0 flex items-center justify-center" data-aos="fade-left">
+        <div class="absolute -z-10 bg-blue-500/40 rounded-full w-[400px] h-[400px] blur-3xl"></div>
+        <img src="https://cdn-icons-png.flaticon.com/512/4320/4320337.png"
+            alt="Doctor with medicine"
+            class="w-[300px] lg:w-[350px] rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-500">
+        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966333.png"
+            alt="Pill"
+            class="absolute top-10 left-5 w-12 animate-bounce">
+        <img src="https://cdn-icons-png.flaticon.com/512/2965/2965567.png"
+            alt="Stethoscope"
+            class="absolute bottom-10 right-10 w-12 animate-pulse">
+        <img src="https://cdn-icons-png.flaticon.com/512/4320/4320355.png"
+            alt="Injection"
+            class="absolute top-1/2 -right-5 w-12 animate-bounce">
+      </div>
+    </section>
+
+    <!-- ===== DEPARTMENTS SECTION (HORIZONTAL SCROLL + SEARCH) ===== -->
+    <section id="departments" class="bg-white py-16 text-center bg-cover bg-center bg-no-repeat overflow-hidden min-h-screen " style="background-image: url(image/1.jpg);">
+      <h2 class="text-3xl font-bold text-blue-700 mb-6">Our Medical Departments</h2>
+      <p class="text-gray-600 mb-10 w-[80%] md:w-[50%] mx-auto">
+        Browse our specialized healthcare departments. Use the search box below to find a specific one.
+      </p>
+
+      <!-- Search Bar -->
+      <div class="mb-10 w-[90%] md:w-[40%] mx-auto">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search department..."
+          class="w-full px-5 py-3 border rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+        />
+      </div>
+
+      <!-- Horizontal Scroll Area -->
+      <div id="scrollContainer" class="flex overflow-x-auto gap-6 px-6 py-4 scroll-smooth snap-x snap-mandatory scrollbar-hide">
+        <!-- Card Template -->
+        <div class="department-card min-w-[280px] snap-center bg-blue-50 p-6 rounded-2xl shadow hover:shadow-lg transition-transform hover:-translate-y-2 animate-fade-in" data-name="Cardiology">
+          <img src="https://cdn-icons-png.flaticon.com/512/2966/2966481.png" alt="Cardiology" class="w-20 h-20 mx-auto mb-4" />
+          <h3 class="text-xl font-semibold text-blue-800">Cardiology</h3>
+          <p class="text-gray-600 mt-2">Heart health and cardiovascular care.</p>
+        </div>
+
+        <div class="department-card min-w-[280px] snap-center bg-blue-50 p-6 rounded-2xl shadow hover:shadow-lg transition-transform hover:-translate-y-2 animate-fade-in" data-name="Neurology">
+          <img src="https://cdn-icons-png.flaticon.com/512/3011/3011270.png" alt="Neurology" class="w-20 h-20 mx-auto mb-4" />
+          <h3 class="text-xl font-semibold text-blue-800">Neurology</h3>
+          <p class="text-gray-600 mt-2">Brain and nervous system specialists.</p>
+        </div>
+
+        <div class="department-card min-w-[280px] snap-center bg-blue-50 p-6 rounded-2xl shadow hover:shadow-lg transition-transform hover:-translate-y-2 animate-fade-in" data-name="Paediatrics">
+          <img src="https://cdn-icons-png.flaticon.com/512/3874/3874556.png" alt="Paediatrics" class="w-20 h-20 mx-auto mb-4" />
+          <h3 class="text-xl font-semibold text-blue-800">Paediatrics</h3>
+          <p class="text-gray-600 mt-2">Child care and wellness monitoring.</p>
+        </div>
+
+        <div class="department-card min-w-[280px] snap-center bg-blue-50 p-6 rounded-2xl shadow hover:shadow-lg transition-transform hover:-translate-y-2 animate-fade-in" data-name="Orthopaedics">
+          <img src="https://cdn-icons-png.flaticon.com/512/3082/3082076.png" alt="Orthopaedics" class="w-20 h-20 mx-auto mb-4" />
+          <h3 class="text-xl font-semibold text-blue-800">Orthopaedics</h3>
+          <p class="text-gray-600 mt-2">Bone, joint, and muscle treatments.</p>
+        </div>
+
+        <div class="department-card min-w-[280px] snap-center bg-blue-50 p-6 rounded-2xl shadow hover:shadow-lg transition-transform hover:-translate-y-2 animate-fade-in" data-name="Dermatology">
+          <img src="https://cdn-icons-png.flaticon.com/512/2950/2950651.png" alt="Dermatology" class="w-20 h-20 mx-auto mb-4" />
+          <h3 class="text-xl font-semibold text-blue-800">Dermatology</h3>
+          <p class="text-gray-600 mt-2">Skin care and treatment experts.</p>
+        </div>
+
+        <div class="department-card min-w-[280px] snap-center bg-blue-50 p-6 rounded-2xl shadow hover:shadow-lg transition-transform hover:-translate-y-2 animate-fade-in" data-name="Radiology">
+          <img src="https://cdn-icons-png.flaticon.com/512/2965/2965567.png" alt="Radiology" class="w-20 h-20 mx-auto mb-4" />
+          <h3 class="text-xl font-semibold text-blue-800">Radiology</h3>
+          <p class="text-gray-600 mt-2">Imaging and diagnostic scanning.</p>
+        </div>
+
+        <div class="department-card min-w-[280px] snap-center bg-blue-50 p-6 rounded-2xl shadow hover:shadow-lg transition-transform hover:-translate-y-2 animate-fade-in" data-name="Pharmacy">
+          <img src="https://cdn-icons-png.flaticon.com/512/2966/2966434.png" alt="Pharmacy" class="w-20 h-20 mx-auto mb-4" />
+          <h3 class="text-xl font-semibold text-blue-800">Pharmacy</h3>
+          <p class="text-gray-600 mt-2">Medication and prescription services.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-blue-700 text-white text-center py-6">
+      <p>&copy; 2025 MedConnect. All rights reserved.</p>
+    </footer>
+
+    <!-- ===== AOS SCRIPT + SCROLL SCRIPT ===== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ duration: 1000, once: true });
+
+      const searchInput = document.getElementById("searchInput");
+      const departmentCards = document.querySelectorAll(".department-card");
+      const scrollContainer = document.getElementById("scrollContainer");
+
+      // Search filter
+      searchInput.addEventListener("input", function() {
+        const filter = this.value.toLowerCase();
+        departmentCards.forEach((card) => {
+          const name = card.getAttribute("data-name").toLowerCase();
+          card.style.display = name.includes(filter) ? "block" : "none";
+        });
+      });
+
+      // Auto horizontal scroll
+      let scrollAmount = 0;
+      let autoScroll;
+      const maxScroll = () => scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+      function startScroll() {
+        autoScroll = setInterval(() => {
+          scrollAmount += 1.2;
+          if (scrollAmount >= maxScroll()) scrollAmount = 0;
+          scrollContainer.scrollLeft = scrollAmount;
+        }, 20);
+      }
+
+      scrollContainer.addEventListener("mouseenter", () => clearInterval(autoScroll));
+      scrollContainer.addEventListener("mouseleave", startScroll);
+      startScroll();
+    </script>
+
+  </body>
+</html>

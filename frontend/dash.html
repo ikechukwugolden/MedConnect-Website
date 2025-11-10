@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | MedConnect</title>
+
+    <!-- Tailwind + Chart.js -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="src/output.css" />
+
+    <style>
+      .video-container {
+        position: relative;
+        background: #000;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+      .video-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      }
+      .pulse-dot {
+        width: 12px;
+        height: 12px;
+        background: #10b981;
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(1.3);
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-screen bg-gray-100 bg-cover bg-center bg-no-repeat transition-all duration-500 dark:bg-gray-900 dark:text-white"
+    style="background-image: url('image/image3.png')"
+  >
+    <!-- NAVBAR -->
+    <nav
+      id="navbar"
+      class="bg-blue-700 text-white py-4 px-6 flex flex-wrap justify-between items-center transition-all duration-300 dark:bg-gray-800"
+    >
+      <h1 class="text-2xl font-bold mb-2 md:mb-0">MedConnect Dashboard</h1>
+
+      <div
+        class="flex flex-wrap justify-center md:justify-end gap-3 w-full md:w-auto"
+      >
+        <button
+          id="themeToggle"
+          class="bg-white dark:bg-gray-700 text-blue-700 dark:text-yellow-400 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition flex items-center gap-2"
+        >
+          <span id="modeText">Dark Mode</span>
+        </button>
+        <a
+          href="index.html"
+          class="bg-white dark:bg-gray-700 text-blue-700 dark:text-blue-300 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+        >
+          Home
+        </a>
+        <button
+          onclick="logout()"
+          class="bg-white dark:bg-gray-700 text-red-600 dark:text-red-400 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+        >
+          Logout
+        </button>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <section class="p-4 sm:p-6 space-y-8 max-w-7xl mx-auto">
+      <!-- Welcome -->
+      <h2
+        class="text-2xl font-semibold text-gray-800 dark:text-white text-center md:text-left"
+      >
+        Welcome, <span id="userName">User</span>
+      </h2>
+
+      <!-- VIDEO CALL SECTION -->
+      <div
+        class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-semibold text-blue-700 dark:text-blue-400">
+            Video Consultation
+          </h3>
+          <button
+            id="callBtn"
+            class="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition flex items-center gap-2"
+          >
+            <span class="hidden" id="callStatus">Connecting...</span>
+            <span id="callText">Start Call</span>
+          </button>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4">
+          <!-- Main Video -->
+          <div class="md:col-span-2 video-container h-64 md:h-80">
+            <div id="mainVideo" class="video-placeholder">
+              <div class="text-center">
+                <div class="text-6xl mb-2">Video Camera</div>
+                <p>Waiting for doctor...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Self View -->
+          <div class="video-container h-40 md:h-80">
+            <div id="selfVideo" class="video-placeholder">
+              <div class="text-center">
+                <div class="text-4xl mb-2">Selfie Camera</div>
+                <p>You</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 flex justify-center gap-4">
+          <button
+            class="bg-gray-600 text-white p-3 rounded-full hover:bg-gray-700 transition"
+          >
+            Microphone
+          </button>
+          <button
+            class="bg-red-600 text-white p-3 rounded-full hover:bg-red-700 transition"
+          >
+            End Call
+          </button>
+          <button
+            class="bg-gray-600 text-white p-3 rounded-full hover:bg-gray-700 transition"
+          >
+            Camera
+          </button>
+        </div>
+      </div>
+
+      <!-- LIVE HEALTH TRACKING -->
+      <div
+        class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-semibold text-blue-700 dark:text-blue-400">
+            Live Health Monitor
+          </h3>
+          <div class="flex items-center gap-2">
+            <div class="pulse-dot"></div>
+            <span class="text-sm text-green-600 dark:text-green-400">Live</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+          <div class="text-center">
+            <p class="text-4xl font-bold text-red-600" id="liveHeart">72</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+              Heart Rate (bpm)
+            </p>
+          </div>
+          <div class="text-center">
+            <p class="text-4xl font-bold text-blue-600" id="liveSpo2">98</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">SpO₂ (%)</p>
+          </div>
+          <div class="text-center">
+            <p class="text-4xl font-bold text-purple-600" id="liveTemp">36.6</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Temp (°C)</p>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <canvas id="healthChart" height="100"></canvas>
+      </div>
+
+      <!-- MANUAL INPUT (BMI, etc.) -->
+      <div
+        class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700"
+      >
+        <h3 class="text-xl font-semibold text-blue-700 dark:text-blue-400 mb-4">
+          Manual Health Entry
+        </h3>
+        <form id="healthForm" class="grid gap-4 md:grid-cols-2">
+          <input
+            type="number"
+            id="weight"
+            placeholder="Weight (kg)"
+            step="0.1"
+            class="border p-3 rounded-lg dark:bg-gray-700 dark:text-white dark:border-gray-600"
+            required
+          />
+          <input
+            type="number"
+            id="height"
+            placeholder="Height (inches)"
+            step="0.1"
+            class="border p-3 rounded-lg dark:bg-gray-700 dark:text-white dark:border-gray-600"
+            required
+          />
+          <input
+            type="text"
+            id="bloodPressure"
+            placeholder="Blood Pressure (e.g. 120/80)"
+            class="border p-3 rounded-lg dark:bg-gray-700 dark:text-white dark:border-gray-600"
+          />
+          <div class="md:col-span-2 flex gap-3">
+            <button
+              type="submit"
+              class="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+            >
+              Save Record
+            </button>
+            <button
+              type="button"
+              id="clearBtn"
+              class="bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition"
+            >
+              Clear
+            </button>
+          </div>
+        </form>
+
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
+          <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <p class="text-sm text-gray-600 dark:text-gray-400">Your BMI</p>
+            <p class="text-2xl font-bold text-blue-600" id="bmiStat">-</p>
+          </div>
+          <div class="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <p class="text-sm text-gray-600 dark:text-gray-400">Last BP</p>
+            <p class="text-2xl font-bold text-purple-600" id="bpStat">-</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCRIPTS -->
+    <script>
+      /* ---------- LOGOUT ---------- */
+      function logout() {
+        localStorage.clear();
+        window.location.href = "login.html";
+      }
+
+      /* ---------- DARK MODE ---------- */
+      const html = document.documentElement;
+      const toggle = document.getElementById("themeToggle");
+      const modeText = document.getElementById("modeText");
+
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+
+      if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+        html.classList.add("dark");
+        modeText.textContent = "Light Mode";
+        toggle.innerHTML = `${modeText.outerHTML} Sun`;
+      } else {
+        html.classList.remove("dark");
+        modeText.textContent = "Dark Mode";
+        toggle.innerHTML = `${modeText.outerHTML} Moon`;
+      }
+
+      toggle.addEventListener("click", () => {
+        html.classList.toggle("dark");
+        const isDark = html.classList.contains("dark");
+        modeText.textContent = isDark ? "Light Mode" : "Dark Mode";
+        toggle.innerHTML = `${modeText.outerHTML} ${isDark ? "Sun" : "Moon"}`;
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      });
+
+      /* ---------- USER NAME ---------- */
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      if (user.name)
+        document.getElementById("userName").textContent = user.name;
+
+      /* ---------- VIDEO CALL SIMULATION ---------- */
+      const callBtn = document.getElementById("callBtn");
+      const callText = document.getElementById("callText");
+      const callStatus = document.getElementById("callStatus");
+      const mainVideo = document.getElementById("mainVideo");
+      const selfVideo = document.getElementById("selfVideo");
+
+      let callActive = false;
+      callBtn.addEventListener("click", () => {
+        callActive = !callActive;
+        if (callActive) {
+          callText.textContent = "End Call";
+          callStatus.classList.remove("hidden");
+          mainVideo.innerHTML = `<div class="text-center"><div class="text-6xl mb-2">Doctor's Camera</div><p class="text-green-400">Connected</p></div>`;
+          selfVideo.innerHTML = `<div class="text-center"><div class="text-4xl mb-2">Selfie Camera</div><p class="text-green-400">Live</p></div>`;
+        } else {
+          callText.textContent = "Start Call";
+          callStatus.classList.add("hidden");
+          mainVideo.innerHTML = `<div class="text-center"><div class="text-6xl mb-2">Video Camera</div><p>Waiting for doctor...</p></div>`;
+          selfVideo.innerHTML = `<div class="text-center"><div class="text-4xl mb-2">Selfie Camera</div><p>You</p></div>`;
+        }
+      });
+
+      /* ---------- AUTO HEALTH TRACKING ---------- */
+      const liveHeart = document.getElementById("liveHeart");
+      const liveSpo2 = document.getElementById("liveSpo2");
+      const liveTemp = document.getElementById("liveTemp");
+
+      const chartCtx = document.getElementById("healthChart").getContext("2d");
+      const healthChart = new Chart(chartCtx, {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "Heart Rate (bpm)",
+              data: [],
+              borderColor: "#ef4444",
+              backgroundColor: "rgba(239, 68, 68, 0.1)",
+              tension: 0.4,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: false } },
+        },
+      });
+
+      let interval;
+      function startAutoTracking() {
+        if (interval) clearInterval(interval);
+        interval = setInterval(() => {
+          const heart = Math.floor(Math.random() * 20) + 68; // 68–88
+          const spo2 = Math.floor(Math.random() * 5) + 95; // 95–99
+          const temp = (36.4 + Math.random() * 0.4).toFixed(1);
+
+          liveHeart.textContent = heart;
+          liveSpo2.textContent = spo2;
+          liveTemp.textContent = temp;
+
+          const now = new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          healthChart.data.labels.push(now);
+          healthChart.data.datasets[0].data.push(heart);
+
+          if (healthChart.data.labels.length > 10) {
+            healthChart.data.labels.shift();
+            healthChart.data.datasets[0].data.shift();
+          }
+          healthChart.update("quiet");
+        }, 5000);
+      }
+
+      // Start auto tracking on load
+      startAutoTracking();
+
+      /* ---------- MANUAL BMI & BP ---------- */
+      const form = document.getElementById("healthForm");
+      const bmiStat = document.getElementById("bmiStat");
+      const bpStat = document.getElementById("bpStat");
+      const clearBtn = document.getElementById("clearBtn");
+
+      const STORAGE_KEY = "healthRecords";
+      function loadManual() {
+        const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        if (data.bmi) bmiStat.textContent = data.bmi;
+        if (data.bp) bpStat.textContent = data.bp;
+      }
+      loadManual();
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const weight = parseFloat(document.getElementById("weight").value);
+        const heightIn = parseFloat(document.getElementById("height").value);
+        const bp = document.getElementById("bloodPressure").value.trim();
+
+        let bmi = "-";
+        if (!isNaN(weight) && !isNaN(heightIn) && heightIn > 0) {
+          const heightM = heightIn * 0.0254;
+          bmi = (weight / heightM ** 2).toFixed(1);
+          bmiStat.textContent = bmi;
+        }
+        if (bp) bpStat.textContent = bp;
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ bmi, bp }));
+        alert("Record saved!");
+        form.reset();
+      });
+
+      clearBtn.addEventListener("click", () => {
+        if (confirm("Clear manual records?")) {
+          localStorage.removeItem(STORAGE_KEY);
+          bmiStat.textContent = "-";
+          bpStat.textContent = "-";
+          form.reset();
+        }
+      });
+      4;
+
+      /* ---------- LOAD PATIENT PROFILE ---------- */
+      const patient = JSON.parse(localStorage.getItem("user") || "{}");
+      if (patient.role !== "Patient") {
+        window.location.href = "login.html"; // redirect if not a patient
+      }
+      document.getElementById("userName").textContent =
+        patient.name || "Patient";
+      document.getElementById("navbar").innerHTML += `
+  <div class="flex items-center gap-3">
+    <img src="${patient.pic}" alt="Profile" class="w-10 h-10 rounded-full border">
+    <span>${patient.email}</span>
+  </div>
+`;
+    </script>
+  </body>
+</html>

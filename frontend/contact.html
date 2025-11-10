@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Get in touch with MedConnect in Aba, Abia State. Call, text, email, or visit us." />
+  <meta property="og:title" content="Contact Us | MedConnect" />
+  <meta property="og:description" content="One tap to reach us – call, WhatsApp, email, or find us in Aba, Abia." />
+  <meta property="og:image" content="image/image5.png" />
+  <meta property="og:url" content="https://yourdomain.com/contact.html" />
+  <title>Contact Us | MedConnect - Aba, Abia</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: { blue: { 700: '#1E40AF', 600: '#2563EB' } },
+          animation: {
+            'slideDown': 'slideDown 0.3s ease-out',
+            'fadeIn': 'fadeIn 0.6s ease-out forwards'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .map-container iframe { border: 0; width: 100%; height: 100%; border-radius: 1rem; }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-slideDown { animation: slideDown 0.3s ease-out; }
+    .animate-fadeIn { animation: fadeIn 0.6s ease-out forwards; opacity: 0; }
+  </style>
+</head>
+
+<body class="bg-[#f7fafc] text-gray-800 font-sans">
+
+  <!-- ===== HEADER ===== -->
+  <header class="w-full bg-white shadow-md py-4 px-6 md:px-12 flex justify-between items-center fixed top-0 left-0 z-50">
+    <h1 class="text-2xl font-bold text-blue-700">MedConnect</h1>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex gap-6 font-medium">
+      <a href="index.html" class="hover:text-blue-600 transition">Home</a>
+      <a href="appointment.html" class="hover:text-blue-600 transition">Appointment</a>
+      <a href="departments.html" class="hover:text-blue-600 transition">Departments</a>
+      <a href="signup.html" class="hover:text-blue-600 transition">Sign Up</a>
+      <a href="login.html" class="hover:text-blue-600 transition">Log In</a>
+      <a href="contact.html" class="text-blue-600 font-semibold">Contact</a>
+    </nav>
+
+    <!-- Mobile Hamburger Button -->
+    <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition" aria-label="Toggle menu">
+      <svg id="hamburgerIcon" class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      <svg id="closeIcon" class="hidden w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile Nav (Dropdown) -->
+  <nav id="mobileNav" class="hidden md:hidden fixed top-16 left-0 w-full bg-white shadow-lg z-40 animate-slideDown">
+    <div class="flex flex-col py-4 px-6 gap-4 font-medium text-lg">
+      <a href="index.html" class="hover:text-blue-600 transition py-2">Home</a>
+      <a href="appointment.html" class="hover:text-blue-600 transition py-2">Appointment</a>
+      <a href="departments.html" class="hover:text-blue-600 transition py-2">Departments</a>
+      <a href="signup.html" class="hover:text-blue-600 transition py-2">Sign Up</a>
+      <a href="login.html" class="hover:text-blue-600 transition py-2">Log In</a>
+      <a href="contact.html" class="text-blue-600 font-semibold py-2 border-t border-gray-200 mt-2">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="pt-24 pb-16 md:pt-32 md:pb-20 bg-gradient-to-br from-blue-50 to-white">
+    <div class="container mx-auto px-6 text-center">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-700 leading-tight animate-fadeIn">
+        Get in Touch
+      </h1>
+      <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto animate-fadeIn animation-delay-200">
+        Tap to call, message, or find us – we’re here 24/7 in Aba, Abia.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT INFO + FORM ===== -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+      <!-- Contact Info Cards (Clickable) -->
+      <div class="lg:col-span-1 space-y-6">
+        <!-- Phone Card -->
+        <a href="tel:+2348030001234" class="block bg-blue-50 p-6 rounded-xl shadow-sm border border-blue-100 hover:shadow-md transition animate-fadeIn animation-delay-300">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 bg-blue-700 text-white rounded-full flex items-center justify-center">
+              📞
+            </div>
+            <h3 class="font-semibold text-blue-700">Call Us</h3>
+          </div>
+          <p class="text-gray-700 font-medium">+234 803 000 1234</p>
+          <p class="text-sm text-gray-500">24/7 Emergency Line</p>
+        </a>
+
+        <!-- WhatsApp Card -->
+        <a href="https://wa.me/2348030001234?text=Hi%20MedConnect,%20I%20need%20help%20with..." 
+           target="_blank" 
+           class="block bg-green-50 p-6 rounded-xl shadow-sm border border-green-100 hover:shadow-md transition animate-fadeIn animation-delay-400">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center">
+              💬
+            </div>
+            <h3 class="font-semibold text-green-700">WhatsApp</h3>
+          </div>
+          <p class="text-gray-700 font-medium">+234 803 000 1234</p>
+          <p class="text-sm text-gray-500">Instant reply • Open 24/7</p>
+        </a>
+
+        <!-- Email Card -->
+        <a href="mailto:support@medconnect.ng?subject=Inquiry%20from%20Website&body=Hello,%0AI%20have%20a%20question%20about..." 
+           class="block bg-purple-50 p-6 rounded-xl shadow-sm border border-purple-100 hover:shadow-md transition animate-fadeIn animation-delay-500">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center">
+              ✉️
+            </div>
+            <h3 class="font-semibold text-purple-700">Email Us</h3>
+          </div>
+          <p class="text-gray-700 font-medium break-all">support@medconnect.ng</p>
+          <p class="text-sm text-gray-500">Reply within 1 hour</p>
+        </a>
+
+        <!-- Address Card -->
+        <a href="https://maps.google.com/?q=123+Osisioma+Expressway,+Aba,+Abia+State,+Nigeria" 
+           target="_blank" 
+           class="block bg-orange-50 p-6 rounded-xl shadow-sm border border-orange-100 hover:shadow-md transition animate-fadeIn animation-delay-600">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 bg-orange-600 text-white rounded-full flex items-center justify-center">
+              📍
+            </div>
+            <h3 class="font-semibold text-orange-700">Visit Us</h3>
+          </div>
+          <p class="text-gray-700">4d factory road<br>Aba, Abia State, Nigeria</p>
+          <p class="text-sm text-gray-500">Mon–Fri: 8AM–8PM | Sat: 9AM–5PM</p>
+        </a>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="lg:col-span-2">
+        <div class="bg-gray-50 p-6 md:p-8 rounded-2xl shadow-lg animate-fadeIn animation-delay-700">
+          <h2 class="text-2xl font-bold text-blue-700 mb-6">Send Us a Message</h2>
+          <form id="contactForm" class="space-y-5" novalidate>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <input type="text" id="name" placeholder="Full Name" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition" required />
+              <input type="email" id="email" placeholder="Email Address" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition" required />
+            </div>
+            <input type="tel" id="phone" placeholder="Phone Number (optional)" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition" />
+            <select id="subject" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition" required>
+              <option selected disabled>Select Subject</option>
+              <option>General Inquiry</option>
+              <option>Appointment Help</option>
+              <option>Billing Question</option>
+              <option>Emergency</option>
+              <option>Feedback</option>
+            </select>
+            <textarea id="message" rows="5" placeholder="Your Message" class="w-full border p-3 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition resize-none" required></textarea>
+            <button type="submit" class="w-full bg-blue-700 text-white py-3 rounded-lg hover:bg-blue-800 transition shadow-md font-medium text-lg">
+              Send Message
+            </button>
+          </form>
+
+          <div id="contactSuccess" class="hidden mt-6 p-4 bg-green-100 text-green-800 rounded-lg text-center animate-fadeIn">
+            <strong>Thank you!</strong> Your message has been sent. We'll reply within 1 hour.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GOOGLE MAP (Centered on Aba, Abia State, Nigeria) ===== -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-blue-700 mb-8 animate-fadeIn">Find Us in Aba, Abia</h2>
+      <div class="map-container h-80 md:h-96 rounded-xl overflow-hidden shadow-lg">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15825.484902999999!2d7.359999!3d5.106600000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104c1195a7e7e4b3%3A0x8f4b0e3e4f5a4b0e!2sAba%2C%20Abia%2C%20Nigeria!5e0!3m2!1sen!2sng!4v1720000000000!5m2!1sen!2sng" 
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <p class="text-center text-sm text-gray-500 mt-4">Our clinic is located in the heart of Aba. Get directions easily.</p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-gray-900 text-gray-300 py-12">
+    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-xl font-bold text-white mb-4">MedConnect</h3>
+        <p class="text-sm">Your trusted partner in modern healthcare in Aba, Abia.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-white mb-3">Quick Links</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="index.html" class="hover:text-blue-400 transition">Home</a></li>
+          <li><a href="appointment.html" class="hover:text-blue-400 transition">Appointment</a></li>
+          <li><a href="departments.html" class="hover:text-blue-400 transition">Departments</a></li>
+          <li><a href="contact.html" class="hover:text-blue-400 transition">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-white mb-3">Contact</h4>
+        <p class="text-sm">
+          <a href="tel:+2348030001234" class="hover:text-blue-400">+234 803 000 1234</a>
+        </p>
+        <p class="text-sm">
+          <a href="mailto:support@medconnect.ng" class="hover:text-blue-400 break-all">support@medconnect.ng</a>
+        </p>
+        <p class="text-sm mt-2">
+          <a href="https://maps.google.com/?q=123+Osisioma+Expressway,+Aba,+Abia+State,+Nigeria" class="hover:text-blue-400">123 Osisioma Expressway, Aba, Abia</a>
+        </p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-white mb-3">Follow Us</h4>
+        <div class="flex gap-3">
+          <a href="#" class="hover:text-blue-400 transition">Facebook</a>
+          <a href="#" class="hover:text-blue-400 transition">Twitter</a>
+          <a href="#" class="hover:text-blue-400 transition">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 text-center text-sm border-t border-gray-700 pt-4">
+      © <span id="year"></span> MedConnect. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const hamburger = document.getElementById('hamburgerIcon');
+    const closeIcon = document.getElementById('closeIcon');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = !mobileNav.classList.contains('hidden');
+      mobileNav.classList.toggle('hidden');
+      mobileNav.classList.toggle('animate-slideDown');
+      hamburger.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+      document.body.style.overflow = isOpen ? 'auto' : 'hidden';
+    });
+
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.add('hidden');
+        hamburger.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      });
+    });
+
+    // Contact Form
+    const contactForm = document.getElementById('contactForm');
+    const contactSuccess = document.getElementById('contactSuccess');
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (contactForm.checkValidity()) {
+        contactSuccess.classList.remove('hidden');
+        contactForm.reset();
+        setTimeout(() => contactSuccess.classList.add('hidden'), 6000);
+      } else {
+        contactForm.reportValidity();
+      }
+    });
+
+    // Current Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Animation Delays
+    document.querySelectorAll('.animation-delay-200').forEach(el => el.style.animationDelay = '0.2s');
+    document.querySelectorAll('.animation-delay-300').forEach(el => el.style.animationDelay = '0.3s');
+    document.querySelectorAll('.animation-delay-400').forEach(el => el.style.animationDelay = '0.4s');
+    document.querySelectorAll('.animation-delay-500').forEach(el => el.style.animationDelay = '0.5s');
+    document.querySelectorAll('.animation-delay-600').forEach(el => el.style.animationDelay = '0.6s');
+    document.querySelectorAll('.animation-delay-700').forEach(el => el.style.animationDelay = '0.7s');
+  </script>
+</body>
+</html>
