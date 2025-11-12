@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Appointment | MedConnect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="src/output.css" rel="stylesheet" />
+  </head>
+  <body
+    class="bg-gray-100 flex flex-col items-center justify-center min-h-screen px-4"
+  >
+    <div
+      class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md border border-gray-200"
+    >
+      <h1 class="text-2xl font-bold text-blue-700 mb-4 text-center">
+        Book Appointment
+      </h1>
+
+      <!-- Doctor info display -->
+      <div id="doctorInfo" class="text-center mb-6"></div>
+
+      <!-- Appointment Form -->
+      <form id="bookingForm" class="space-y-4">
+        <!-- Doctor name (auto-filled and readonly) -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Doctor Name</label>
+          <input
+            type="text"
+            id="doctorName"
+            readonly
+            class="w-full p-3 border rounded-lg bg-gray-100 text-gray-700 cursor-not-allowed"
+          />
+        </div>
+
+        <!-- Patient name -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Your Name</label>
+          <input
+            type="text"
+            id="patientName"
+            required
+            placeholder="Enter your name"
+            class="w-full p-3 border rounded-lg"
+          />
+        </div>
+
+        <!-- Appointment date -->
+        <div>
+          <label class="block text-sm font-medium mb-1">Appointment Date</label>
+          <input
+            type="date"
+            id="appointmentDate"
+            required
+            class="w-full p-3 border rounded-lg"
+          />
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg"
+        >
+          Book Appointment
+        </button>
+      </form>
+    </div>
+
+    <script>
+      // Get doctor info from QR link parameters
+      const params = new URLSearchParams(window.location.search);
+      const doctor = params.get("doctor");
+      const email = params.get("email");
+
+      // Auto-fill and display doctor details
+      if (doctor) {
+        document.getElementById("doctorInfo").innerHTML = `
+        <h2 class="text-lg font-semibold text-gray-800">Booking Appointment with</h2>
+        <p class="text-blue-600 font-bold text-xl mt-1">Dr. ${doctor}</p>
+        <p class="text-gray-600 text-sm">${email}</p>
+      `;
+        document.getElementById("doctorName").value = "Dr. " + doctor;
+      }
+
+      // Simulate appointment booking
+      document.getElementById("bookingForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const patient = document.getElementById("patientName").value.trim();
+        const date = document.getElementById("appointmentDate").value;
+
+        if (!patient || !date) {
+          alert("Please fill in all fields.");
+          return;
+        }
+
+        alert(`✅ Appointment booked with Dr. ${doctor} for ${date}.`);
+      });
+    </script>
+  </body>
+</html>

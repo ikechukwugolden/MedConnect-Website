@@ -2,126 +2,125 @@
 <html lang="en" class="transition-colors duration-500">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign In | MedConnect</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="src/output.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 </head>
-
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex flex-col items-center justify-center min-h-screen px-4">
 
-  <!-- ===== HEADER ===== -->
   <h1 class="text-3xl font-bold text-blue-700 dark:text-blue-400 mb-2">Welcome to MedConnect</h1>
   <p class="text-gray-600 dark:text-gray-300 mb-8 text-center">Sign in to continue to your dashboard</p>
 
-  <!-- ===== SIGN IN FORM ===== -->
-  <form id="signinForm"
-        class="bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8 w-full max-w-md space-y-6 border border-gray-200 dark:border-gray-700">
-
-    <!-- Name -->
+  <form id="signinForm" class="bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8 w-full max-w-md space-y-6 border border-gray-200 dark:border-gray-700">
     <div>
       <label for="name" class="block text-sm font-medium mb-1">Full Name</label>
-      <input type="text" id="name" name="name" required
-             placeholder="Enter your full name"
-             class="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-blue-500">
+      <input type="text" id="name" name="name" required placeholder="Enter your full name" class="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-blue-500"/>
     </div>
 
-    <!-- Email -->
     <div>
       <label for="email" class="block text-sm font-medium mb-1">Email Address</label>
-      <input type="email" id="email" name="email" required
-             placeholder="Enter your email"
-             class="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-blue-500">
+      <input type="email" id="email" name="email" required placeholder="Enter your email" class="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-blue-500"/>
     </div>
 
-    <!-- Profile Picture -->
     <div>
       <label class="block text-sm font-medium mb-2">Profile Picture</label>
       <div class="flex items-center gap-3">
-        <img id="previewImg" src="https://via.placeholder.com/80"
-             alt="Profile preview" class="w-16 h-16 rounded-full border object-cover">
-        <input type="file" id="profilePic" accept="image/*"
-               class="text-sm text-gray-500 dark:text-gray-300 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+        <img id="previewImg" src="https://via.placeholder.com/80" alt="Profile preview" class="w-16 h-16 rounded-full border object-cover"/>
+        <input type="file" id="profilePic" accept="image/*" class="text-sm text-gray-500 dark:text-gray-300 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer"/>
       </div>
     </div>
 
-    <!-- Role Selection -->
     <div>
       <label class="block text-sm font-medium mb-2">I am a:</label>
       <div class="flex gap-4">
         <label class="flex items-center gap-2 cursor-pointer">
-          <input type="radio" name="role" value="Doctor" required class="accent-blue-600">
+          <input type="radio" name="role" value="Doctor" required class="accent-blue-600"/>
           <span>Doctor</span>
         </label>
         <label class="flex items-center gap-2 cursor-pointer">
-          <input type="radio" name="role" value="Patient" required class="accent-green-600">
+          <input type="radio" name="role" value="Patient" required class="accent-green-600"/>
           <span>Patient</span>
         </label>
       </div>
     </div>
 
-    <!-- Submit Button -->
-    <button type="submit"
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition">
-      Continue
-    </button>
+    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition">Continue</button>
   </form>
 
-  <!-- Back -->
-  <div class="mt-6">
-    <a href="index.html" class="text-blue-600 dark:text-blue-400 hover:underline">← Back to Home</a>
+  <!-- Doctor Dashboard Preview -->
+  <div id="doctorDashboard" class="hidden mt-8 w-full max-w-md space-y-6">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
+      <h2 class="text-xl font-semibold mb-2" id="docNameDisplay">Dr. Name</h2>
+      <img id="docPicDisplay" src="" alt="Doctor Pic" class="w-20 h-20 rounded-full border mb-3"/>
+      <p id="docEmailDisplay" class="text-gray-600 dark:text-gray-400 mb-4">Email: doctor@example.com</p>
+
+      <div id="qrContainer" class="text-center">
+        <h3 class="text-lg font-semibold mb-2">Your QR Code</h3>
+        <div id="qrcode" class="inline-block mb-2"></div>
+        <button id="shareBtn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition mb-2">Share to Homepage</button>
+        <button id="goDashboardBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Go to Your Dashboard</button>
+      </div>
+    </div>
   </div>
 
-  <!-- ===== DARK MODE TOGGLE ===== -->
-  <button id="themeToggle"
-    class="fixed bottom-6 right-6 bg-white dark:bg-gray-800 text-blue-700 dark:text-yellow-300 p-3 rounded-full shadow-lg hover:shadow-xl transition">
-    🌙
-  </button>
-
   <script>
-    /* ---- DARK MODE ---- */
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      themeToggle.textContent =
-        document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
-    });
+    const fileInput = document.getElementById("profilePic");
+    const previewImg = document.getElementById("previewImg");
+    const dashboard = document.getElementById("doctorDashboard");
+    const docNameDisplay = document.getElementById("docNameDisplay");
+    const docEmailDisplay = document.getElementById("docEmailDisplay");
+    const docPicDisplay = document.getElementById("docPicDisplay");
+    const qrcodeEl = document.getElementById("qrcode");
+    const shareBtn = document.getElementById("shareBtn");
+    const goDashboardBtn = document.getElementById("goDashboardBtn");
 
-    /* ---- IMAGE PREVIEW ---- */
-    const fileInput = document.getElementById('profilePic');
-    const previewImg = document.getElementById('previewImg');
-    fileInput.addEventListener('change', e => {
+    fileInput.addEventListener("change", e => {
       const file = e.target.files[0];
-      if (file) {
+      if(file){
         const reader = new FileReader();
         reader.onload = e => previewImg.src = e.target.result;
         reader.readAsDataURL(file);
       }
     });
 
-    /* ---- FORM HANDLING ---- */
-    const form = document.getElementById('signinForm');
-    form.addEventListener('submit', e => {
+    document.getElementById("signinForm").addEventListener("submit", e => {
       e.preventDefault();
-
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const role = document.querySelector('input[name="role"]:checked')?.value;
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const role = document.querySelector('input[name="role"]:checked').value;
       const pic = previewImg.src;
 
-      // Save user info to localStorage
-      localStorage.setItem('user', JSON.stringify({ name, email, role, pic }));
+      const userData = { name, email, pic, role };
+      localStorage.setItem("user", JSON.stringify(userData));
 
-      alert(`Welcome ${name}! Redirecting to your ${role} doctors .html `);
+      if(role === "Doctor"){
+        dashboard.classList.remove("hidden");
+        docNameDisplay.textContent = name;
+        docEmailDisplay.textContent = "Email: " + email;
+        docPicDisplay.src = pic;
 
-      // Redirect based on role
-      if (role === 'Doctor') {
-        window.location.href = 'doctors.html';
+        // Generate QR code pointing to doctor dashboard
+        const doctorDashboardURL = `${window.location.origin}/doctor_dashboard.html`;
+        qrcodeEl.innerHTML = "";
+        new QRCode(qrcodeEl, { text: doctorDashboardURL, width: 180, height: 180 });
+
+        // Share to homepage
+        shareBtn.addEventListener("click", () => {
+          const homepagePosts = JSON.parse(localStorage.getItem("homepagePosts") || "[]");
+          homepagePosts.push({ name, pic, qr: doctorDashboardURL, date: new Date().toLocaleString() });
+          localStorage.setItem("homepagePosts", JSON.stringify(homepagePosts));
+          alert("✅ Shared to homepage! Patients can now see and scan your QR code.");
+        });
+
+        goDashboardBtn.addEventListener("click", () => {
+          window.location.href = "doctor_dashboard.html";
+        });
+
       } else {
-        window.location.href = 'dash.html';
+        window.location.href = "dash.html"; // Patient dashboard
       }
     });
   </script>
-
 </body>
 </html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard | MedConnect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white min-h-screen flex flex-col items-center justify-start p-6">
+
+  <h1 class="text-2xl font-bold mb-4">Welcome, <span id="doctorName"></span></h1>
+  <img id="doctorPic" src="" class="w-24 h-24 rounded-full border mb-3"/>
+  <p id="doctorEmail" class="text-gray-600 dark:text-gray-400 mb-6"></p>
+
+  <h2 class="text-xl font-semibold mb-2">Your QR Code</h2>
+  <div id="doctorQR" class="mb-4"></div>
+  <p class="text-sm text-gray-500">Patients can scan this QR code to book appointments.</p>
+
+  <script>
+    const doctor = JSON.parse(localStorage.getItem("user") || "{}");
+    if(!doctor || doctor.role !== "Doctor"){
+      window.location.href = "signin.html";
+    }
+
+    document.getElementById("doctorName").textContent = doctor.name;
+    document.getElementById("doctorPic").src = doctor.pic;
+    document.getElementById("doctorEmail").textContent = "Email: " + doctor.email;
+
+    // Generate QR code pointing to booking page
+    const bookingPage = `${window.location.origin}/book.html?doctor=${encodeURIComponent(doctor.name)}`;
+    new QRCode(document.getElementById("doctorQR"), { text: bookingPage, width: 180, height: 180 });
+  </script>
+</body>
+</html>
